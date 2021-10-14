@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  div Choisir un prénom:
+    input#name(type='text' placeholder='Enter your name')
+    input(type='button' value='OK' onclick='valid()')
+    #message
+    script(src='http://code.jquery.com/jquery-1.10.1.min.js')
+    script.
+      function valid() {
+      $.getJSON('/hello/' + $('#name').val())
+        .done(function(data){
+          $('#message').html(data.message);
+        });
+      }
