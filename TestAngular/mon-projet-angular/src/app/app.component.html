@@ -1,22 +1,14 @@
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+  <ul class="nav navbar-nav">
+    <li routerLinkActive="active"><a routerLink="auth">Authentification</a></li> <!-- Version classique avec href autre version singlepage version angular avec routerLink-->
+    <li routerLinkActive="active"><a routerLink="appareils">Appareils</a></li> 
+  </ul>
+</div>
+</nav>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
-      <h2>Mes Appareil</h2>
-
-     <!-- Version SANS ASYNC <p>Mise à jour: {{ lastUpdate | date: "yMMMMEEEEd" | uppercase }}</p> -->
-     <p>Mise à jour: {{ lastUpdate | async | date: 'yMMMMEEEEd' | uppercase }}</p>
-
-      <ul class="list-group">
-        <app-appareil *ngFor="let appareil of appareils" [appareilName] = "appareil.name" [appareilStatut] = "appareil.statut"> </app-appareil>
-        
-        <!-- premiere version avec 3 appel séparer--> 
-        <!---  <app-appareil [appareilName]="appareilOne" [appareilStatut] = "'éteint'"></app-appareil>
-        <app-appareil [appareilName]= "appareilTwo" [appareilStatut] = "'allumer'"></app-appareil>
-        <app-appareil [appareilName] = "appareilThree" [appareilStatut] = "'éteint'"></app-appareil> -->
-      </ul>
-      <button class="btn btn-success" 
-              [disabled]="!isAuth" 
-              (click)="onAllumer()">Tout allumer</button>
-    </div>
+    <!-- je déplace tout dans un nouveau fichier appareil-view et j'appel le component ici <app-appareil-view></app-appareil-view>-->
+    <router-outlet></router-outlet>
   </div>
 </div>
