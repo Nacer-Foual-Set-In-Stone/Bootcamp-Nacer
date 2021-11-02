@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Mes Appareil</h2>
+
+     <!-- Version SANS ASYNC <p>Mise à jour: {{ lastUpdate | date: "yMMMMEEEEd" | uppercase }}</p> -->
+     <p>Mise à jour: {{ lastUpdate | async | date: 'yMMMMEEEEd' | uppercase }}</p>
+
+      <ul class="list-group">
+        <app-appareil *ngFor="let appareil of appareils" [appareilName] = "appareil.name" [appareilStatut] = "appareil.statut"> </app-appareil>
+        
+        <!-- premiere version avec 3 appel séparer--> 
+        <!---  <app-appareil [appareilName]="appareilOne" [appareilStatut] = "'éteint'"></app-appareil>
+        <app-appareil [appareilName]= "appareilTwo" [appareilStatut] = "'allumer'"></app-appareil>
+        <app-appareil [appareilName] = "appareilThree" [appareilStatut] = "'éteint'"></app-appareil> -->
+      </ul>
+      <button class="btn btn-success" 
+              [disabled]="!isAuth" 
+              (click)="onAllumer()">Tout allumer</button>
+    </div>
+  </div>
+</div>
