@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AppareilService } from '../services/appareil.service';
 
 @Component({
@@ -25,6 +26,8 @@ export class AppareilViewComponent implements OnInit {
   );
 
   appareils: any[];
+  appareilSubscription: Subscription; //On vas stocker notre subscription dans un objet du type Subscirption
+
   /* premiere version utilisé avec ngIf ainsi que le Input() appareilName
   appareilOne = "Machine à laver";
   appareilTwo = "Ordinateur";
@@ -44,7 +47,14 @@ export class AppareilViewComponent implements OnInit {
   //Goal faire en sorte que notre tableau Local appareils: any[]; soit égale au tableau dans notre services
   ngOnInit(){
 
-    this.appareils = this.appareilService.appareils;
+    this.appareilSubscription = this.appareilService.appareilSubject.subscribe(  // <-- On souscit au Subject qui va emmetre un array de type any qui contiendra nos appareils
+      (appareils: any[]) =>{
+        this.appareils = appareils; // this.appareil = notre liste d'appareil en local // Goal on prend la copie qui est donner et on l'associe a notre variable local
+      }
+
+    );
+
+    this.appareilService.emitAppareilSubject();
 
   }
 

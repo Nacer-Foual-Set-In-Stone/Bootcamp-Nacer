@@ -5,7 +5,11 @@
    <p>Mise à jour: {{ lastUpdate | async | date: 'yMMMMEEEEd' | uppercase }}</p>
     <!-- Boucle for pour récuperer la iste des appareille et stocke leur valeur index dans une variable i-->
     <ul class="list-group">
-      <app-appareil *ngFor="let appareil of appareils; let i = index" [IndexOfAppareil] = "i" [appareilName] = "appareil.name" [appareilStatut] = "appareil.statut"> </app-appareil>
+      <app-appareil *ngFor="let appareil of appareils;
+                    let i = index" [IndexOfAppareil] = "i"
+                    [appareilName] = "appareil.name" 
+                    [appareilStatut] = "appareil.statut"
+                    [id]= "appareil.id"> </app-appareil>
       
       <!-- premiere version avec 3 appel séparer--> 
       <!---  <app-appareil [appareilName]="appareilOne" [appareilStatut] = "'éteint'"></app-appareil>

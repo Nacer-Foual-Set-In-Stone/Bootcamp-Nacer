@@ -2,6 +2,7 @@
                 'list-group-danger': appareilStatut === 'éteint'}">
 
     <h4 [ngStyle]= "{color: getColor()}">Appareil : {{appareilName}} -- Statut : {{ getStatus() }}</h4>
+    <a [routerLink]="[id]"> Détail</a>
 
     <button class="btn btn-success" 
             (click)="onSwitchOn()"
