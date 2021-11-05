@@ -64,4 +64,18 @@ private appareils = [
       this.appareils[index].statut = "éteint"
       this.emitAppareilSubject();
   }
+
+  addAppareil(name: string, statut: string){
+
+    const appareilObject = {
+      id: 0,
+      name: "",
+      statut: ""
+    };
+    appareilObject.name = name;
+    appareilObject.statut = statut;
+    appareilObject.id = this.appareils[this.appareils.length - 1].id + 1; //<- on récupère le dernier id de la list 
+    this.appareils.push(appareilObject);
+    this.emitAppareilSubject(); 
+  }
 }
