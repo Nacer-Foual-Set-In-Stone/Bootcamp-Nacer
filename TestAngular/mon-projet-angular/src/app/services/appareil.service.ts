@@ -1,5 +1,8 @@
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 
+@Injectable()
 export class AppareilService {
 
 //on crée un Subject afin de pouvoir manipuler et afficher notre liste d'appareils qui est maintenant private donc non accessible 
@@ -8,7 +11,7 @@ appareilSubject = new Subject<any[]>();
 
 //Goal: Crée un tableau contenant les appareils que nous appelons dans nos directive if etc..
 private appareils = [
-    {
+  {
       id: 1,
       name: "Machine à laver",
       statut: "allumer" 
@@ -24,6 +27,9 @@ private appareils = [
       statut: "éteint"
     }
   ];
+
+constructor(private httpClient: HttpClient) {}
+
   //Goal : appelle la méthode next() sur le subject et force le subject à émettre ce qu'on lui passe en arguments
   //le .Sslice() permet d'emmettre une copie de notre array
   emitAppareilSubject(){
@@ -77,5 +83,28 @@ private appareils = [
     appareilObject.id = this.appareils[this.appareils.length - 1].id + 1; //<- on récupère le dernier id de la list 
     this.appareils.push(appareilObject);
     this.emitAppareilSubject(); 
+  }
+
+  saveAppareilsToServer(){
+    this.httpClient.put('https://angular-demo-32bf4-default-rtdb.europe-west1.firebasedatabase.app/appareils.json', this.appareils).subscribe(
+      () =>{
+        console.log("enregistrement terminer");
+      },
+      (error) => {
+        console.log(" error in save" + error);
+      }
+    )
+  }
+
+  getAppareilsFromServer(){
+    this.httpClient.get<any []>('https://angular-demo-32bf4-default-rtdb.europe-west1.firebasedatabase.app/appareils.json, this.appareils').subscribe(
+      (response) => {
+        this.appareils = response;
+        this.emitAppareilSubject();
+      },
+      (error) => {
+        console.log("error de chargement"+ error);
+      }
+    )
   }
 }
